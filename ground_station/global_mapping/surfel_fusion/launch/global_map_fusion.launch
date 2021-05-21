@@ -6,22 +6,22 @@
     <param name="cam_height" value="480" />
 
     <!--input image info-->
-    <param name="cam_fx" value="385.27850341796875" />
-    <param name="cam_fy" value="385.27850341796875" />
-    <param name="cam_cx" value="319.3750915527344" />
-    <param name="cam_cy" value="241.12330627441406" />
+    <param name="cam_fx" value="376.77985743391537" />
+    <param name="cam_fy" value="377.46373696662926" />
+    <param name="cam_cx" value="319.1121466819525" />
+    <param name="cam_cy" value="235.6501025502023" />
 
-    <param name="ric00" value="-4.9876902235101994e-03" />
-    <param name="ric01" value="6.8975396706592029e-03" />
-    <param name="ric02" value="9.9996377279015758e-01" />
+    <param name="ric00" value=" -0.02639414" />
+    <param name="ric01" value="-0.05500924" />
+    <param name="ric02" value="0.99813693" />
 
-    <param name="ric10" value="-9.9994520639236018e-01" />
-    <param name="ric11" value="-9.2379465278691342e-03" />
-    <param name="ric12" value="-4.9238762056141860e-03" />
+    <param name="ric10" value="-0.99951444" />
+    <param name="ric11" value="-0.01508839" />
+    <param name="ric12" value="-0.02726212" />
 
-    <param name="ric20" value="9.2036492313802842e-03" />
-    <param name="ric21" value="-9.9993353993674983e-01" />
-    <param name="ric22" value="6.9432377451592586e-03" />
+    <param name="ric20" value="0.01655995" />
+    <param name="ric21" value="-0.99837184" />
+    <param name="ric22" value="-0.05458428" />
 
     <param name="tic0" value="0.06" />
     <param name="tic1" value="0.0" />
