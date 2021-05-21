@@ -1,7 +1,7 @@
 #include "input.h"
 
 using uav_utils::in_range;
-
+//在这加个全局变量用来计时
 RC_Data_t::RC_Data_t() {
     rcv_stamp = ros::Time(0);
 
@@ -17,7 +17,7 @@ RC_Data_t::RC_Data_t() {
 
 void RC_Data_t::set_default_mode(std::string s) {
     if (s == "manual") {
-        last_gear = MANUAL_MODE_GEAR_VALUE;
+        last_gear = MANUAL_MODE_GEAR_VALUE;//这里不用管，gear不起作用
     } else if (s == "command") {
         last_gear = COMMAND_MODE_GEAR_VALUE;
     } else if (s == "api") {
@@ -40,11 +40,11 @@ void RC_Data_t::feed(sensor_msgs::JoyConstPtr pMsg) {
     mode = msg.axes[4];
     gear = msg.axes[5];
     if(gear < -1.0) gear = -1.0; //zxzxzxzx
-
-    check_validity();
+    //这个gear的判断不要了
+    check_validity(); //这里面gear的取值范围要改
 
     if (last_mode < API_MODE_THRESHOLD_VALUE && mode > API_MODE_THRESHOLD_VALUE)
-        enter_api_mode = true;
+        enter_api_mode = true; //在这加个开始计时的点
     else
         enter_api_mode = false;
 
@@ -58,7 +58,7 @@ void RC_Data_t::feed(sensor_msgs::JoyConstPtr pMsg) {
     } else if (gear < GEAR_SHIFT_VALUE) {
         enter_command_mode = false;
     }
-
+    //在这进行判断，3秒之后进is command mode 5秒之后进enter command mode
     if (gear > GEAR_SHIFT_VALUE)
         is_command_mode = true;
     else
