@@ -1,5 +1,5 @@
 %YAML:1.0
-
+#calibrate on 5-21-2021 using april 6x6 80cm
 #common parameters
 #support: 1 imu 1 cam; 1 imu 2 cam: 2 cam; 
 imu: 1         
