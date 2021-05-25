@@ -29,7 +29,7 @@ void RC_Data_t::set_default_mode(std::string s) {
     }
 }
 
-void RC_Data_t::feed(sensor_msgs::JoyConstPtr pMsg) {
+void RC_Data_t::feed(sensor_msgs::JoyConstPtr pMsg) {// author:wkd  modified:2021-5
     msg = *pMsg;
     rcv_stamp = ros::Time::now();
 
@@ -39,20 +39,36 @@ void RC_Data_t::feed(sensor_msgs::JoyConstPtr pMsg) {
     thr = msg.axes[3];
     mode = msg.axes[4];
     gear = msg.axes[5];
-    if(gear < -1.0) gear = -1.0; //zxzxzxzx
+    //if(gear < -1.0) gear = -1.0; //zxzxzxzx
     //这个gear的判断不要了
     check_validity(); //这里面gear的取值范围要改
 
     if (last_mode < API_MODE_THRESHOLD_VALUE && mode > API_MODE_THRESHOLD_VALUE)
+    {
         enter_api_mode = true; //在这加个开始计时的点
+        enter_command_mode = true;// wkd 2021-5
+    }
+        
     else
+    {
         enter_api_mode = false;
+        //enter_command_mode = false; //这个地方应该是个比较关键的地方，与enter api mode不同，enter command mode一旦为true便一直为true
+    }
+        
 
     if (mode > API_MODE_THRESHOLD_VALUE)
+    {
         is_api_mode = true;
+        is_command_mode = true;// wkd 2021-5
+    }
+        
     else
+    {
         is_api_mode = false;
-
+        is_command_mode = false;// wkd 2021-5
+    }
+        
+/*  去掉gear物理开关的部分，gear和mode合并
     if (last_gear < GEAR_SHIFT_VALUE && gear > GEAR_SHIFT_VALUE) {
         enter_command_mode = true;
     } else if (gear < GEAR_SHIFT_VALUE) {
@@ -63,7 +79,7 @@ void RC_Data_t::feed(sensor_msgs::JoyConstPtr pMsg) {
         is_command_mode = true;
     else
         is_command_mode = false;
-
+*/
     last_mode = mode;
     last_gear = gear;
 }
@@ -77,9 +93,9 @@ bool RC_Data_t::check_enter_command_mode() {
     }
 }
 
-void RC_Data_t::check_validity() {
+void RC_Data_t::check_validity() {//这里面把gear的判断去掉，因为gear不作为物理开关使用
     if (in_range(roll, 1.0) && in_range(pitch, 1.0) && in_range(yaw, 1.0) && in_range(thr, 1.0) &&
-        in_range(mode, -1.0, 1.0) && in_range(gear, -1.0, 1.0)) {
+        in_range(mode, -1.0, 1.0)) {// author:wkd  modified:2021-5
         // pass
     } else {
         ROS_ERROR("RC data validity check fail.");
